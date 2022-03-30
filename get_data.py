@@ -6,6 +6,7 @@ def get_apple_stock_api():
     path_to_file = "C:/API/AAPL/appleapi.txt"
     with open(path_to_file) as f:
         contents = f.read()
+        print('a  a')
     return contents
     print(contents)
 
