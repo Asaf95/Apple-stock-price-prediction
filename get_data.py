@@ -15,3 +15,4 @@ def get_apple_stock_data():
     print(meta_data)
     data.to_csv('data/apple_daily_data')
     print(data)
+    print('tsting this')

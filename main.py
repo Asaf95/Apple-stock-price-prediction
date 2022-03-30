@@ -12,6 +12,7 @@ def data_analysis(df):
     df.plot( x='date', y='close')
     plt.show()
 
+
 if __name__ == "__main__":
 
     print("Hello world!")
