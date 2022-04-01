@@ -7,7 +7,7 @@ def get_apple_stock_api():
     with open(path_to_file) as f:
         contents = f.read()
     return contents
-    print(contents)
+
 
 def get_apple_stock_data():
     ts = TimeSeries(key=get_apple_stock_api(), output_format='pandas')
