@@ -130,7 +130,7 @@ def LSTM_model(q_80,q_90,dates_train, X_train, y_train,dates_val,
                 'Validation Observations',
                 'Testing Predictions',
                 'Testing Observations'])
-    #plt.show()
+    plt.show()
 
     recursive_predictions = []
     recursive_dates = np.concatenate([dates_val, dates_test])
@@ -155,7 +155,7 @@ def LSTM_model(q_80,q_90,dates_train, X_train, y_train,dates_val,
                 'Testing Predictions',
                 'Testing Observations',
                 'Recursive Predictions'])
-    #plt.show()
+    plt.show()
 
 
 def LSTM_prepare_variables(df):
