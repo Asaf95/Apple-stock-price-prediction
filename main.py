@@ -2,6 +2,8 @@ import pandas as pd
 import data_preparation
 
 
+
+
 if __name__ == "__main__":
 
     #get_data.get_apple_stock_data() # get/ update apple stock data
