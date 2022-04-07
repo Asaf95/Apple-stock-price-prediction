@@ -34,7 +34,7 @@ def df_to_windowed_df(dataframe, first_date_str, last_date_str, n=3):
             print(f'Error: Window of size {n} is too large for date {target_date}')
             return
 
-        values = df_subset['close'].to_numpy()
+        values = df_subset['open'].to_numpy()
         x, y = values[:-1], values[-1]
 
         dates.append(target_date)
@@ -82,20 +82,33 @@ def windowed_df_to_date_X_y(windowed_dataframe):
   return dates, X.astype(np.float32), Y.astype(np.float32)
 
 
-def LSTM_model(q_80,q_90,dates_train, X_train, y_train,dates_val,
+def LSTM_model(dates_train, X_train, y_train,dates_val,
                X_val, y_val,dates_test, X_test, y_test):
-
+    print('this is not the file')
     model = Sequential([layers.Input((3, 1)),
                         layers.LSTM(64),
-                        layers.Dense(32, activation='relu'),
-                        layers.Dense(32, activation='relu'),
+                        layers.Dense(4, activation='relu'),
+                        layers.Dense(4, activation='relu'),
                         layers.Dense(1)])
 
     model.compile(loss='mse',
-                  optimizer=Adam(learning_rate=0.001),
+                  optimizer=Adam(learning_rate=0.00001),
                   metrics=['mean_absolute_error'])
 
     model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=100)
+
+
+    # model = Sequential([layers.Input((3, 1)),
+    #                     layers.LSTM(64),
+    #                     layers.Dense(32, activation='relu'),
+    #                     layers.Dense(32, activation='relu'),
+    #                     layers.Dense(1)])
+    #
+    # model.compile(loss='mse',
+    #               optimizer=Adam(learning_rate=0.001),
+    #               metrics=['mean_absolute_error'])
+    #
+    # model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=100)
 
     train_predictions = model.predict(X_train).flatten()
 
@@ -156,17 +169,19 @@ def LSTM_model(q_80,q_90,dates_train, X_train, y_train,dates_val,
                 'Testing Observations',
                 'Recursive Predictions'])
     plt.show()
+    return recursive_predictions
 
 
 def LSTM_prepare_variables(df):
 
     df_close = df.copy()
-    df_close = df_close[['date', 'close']]
+    df_close = df_close[['date', 'open']]
 
     df_close.index = df_close.pop('date')
     df_close = df_close.iloc[::-1]
     windowed_df = df_to_windowed_df(df_close,
-                                    '2021-03-25',
+
+                                    '2018-08-25',
                                     '2022-03-23',
                                     n=3)
     dates, X, y = windowed_df_to_date_X_y(windowed_df)
@@ -177,4 +192,4 @@ def LSTM_prepare_variables(df):
     dates_train, X_train, y_train = dates[:q_80], X[:q_80], y[:q_80]
     dates_val, X_val, y_val = dates[q_80:q_90], X[q_80:q_90], y[q_80:q_90]
     dates_test, X_test, y_test = dates[q_90:], X[q_90:], y[q_90:]
-    LSTM_model(q_80, q_90, dates_train, X_train, y_train, dates_val, X_val, y_val, dates_test, X_test, y_test)
+    LSTM_model(dates_train, X_train, y_train, dates_val, X_val, y_val, dates_test, X_test, y_test)
