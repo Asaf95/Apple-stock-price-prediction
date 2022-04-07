@@ -199,7 +199,6 @@ def basic_prepare(df):
     """
     df = df.rename(columns={'1. open': 'open', '2. high': 'high', '3. low': 'low',
                             '4. close': 'close','5. volume': 'volume'})
-    from datetime import datetime
     df_org= df.copy()
 
     df['date'] = df.apply(lambda x: pd.to_datetime(x['date'], format='%Y-%m-%d'), axis=1)
