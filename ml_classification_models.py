@@ -481,3 +481,17 @@ def main(c1, cu_y):
     results_df.set_index('Model', inplace=True)
 
     return results_df
+
+
+def classification_models(df):
+
+    y1 = df['close']
+    y2 = df['volume']
+    X = df.iloc[:,2:4]
+    X = X.dropna(axis='columns') # Drop the columns where all elements are missing
+    y = y1
+    result = main(X, y)
+    print('------')
+    y = y2
+    result2 = main(X, y)
+    return result

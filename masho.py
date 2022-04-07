@@ -156,3 +156,25 @@ def LSTM_model(q_80,q_90,dates_train, X_train, y_train,dates_val,
                 'Testing Observations',
                 'Recursive Predictions'])
     #plt.show()
+
+
+def LSTM_prepare_variables(df):
+
+    df_close = df.copy()
+    df_close = df_close[['date', 'close']]
+
+    df_close.index = df_close.pop('date')
+    df_close = df_close.iloc[::-1]
+    windowed_df = df_to_windowed_df(df_close,
+                                    '2021-03-25',
+                                    '2022-03-23',
+                                    n=3)
+    dates, X, y = windowed_df_to_date_X_y(windowed_df)
+
+    q_80 = int(len(dates) * .8)
+    q_90 = int(len(dates) * .9)
+
+    dates_train, X_train, y_train = dates[:q_80], X[:q_80], y[:q_80]
+    dates_val, X_val, y_val = dates[q_80:q_90], X[q_80:q_90], y[q_80:q_90]
+    dates_test, X_test, y_test = dates[q_90:], X[q_90:], y[q_90:]
+    LSTM_model(q_80, q_90, dates_train, X_train, y_train, dates_val, X_val, y_val, dates_test, X_test, y_test)
