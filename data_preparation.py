@@ -1,8 +1,20 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
+"""
+this module prepare the data for the ML models.
+function basic_prepare() -
+    basic naming for the columns names and format the values to the right format (string/ int/ date)
+    this function also calls the apply_stock_split and return to the main module the 
+function apply_stock_split() -
+    normalize the values of the stock according to the current value of the stock share
 
-def apply_stock_split1(df, number, date):
+
+
+"""
+
+
+def apply_stock_split(df, number, date):
     list_of_columns = ['high', 'low', 'close', 'open']
     for item in list_of_columns:
         df['temp'] = df[(df['date'] < date)][item].div(number)
@@ -22,11 +34,10 @@ def basic_prepare(df):
     :return:
     """
     df = df.rename(columns={'1. open': 'open', '2. high': 'high', '3. low': 'low',
-                            '4. close': 'close','5. volume': 'volume'})
-    df_org= df.copy()
+                            '4. close': 'close', '5. volume': 'volume'})
+    df_org = df.copy()
 
     df_org['date'] = df_org.apply(lambda x: pd.to_datetime(x['date'], format='%Y-%m-%d'), axis=1)
-
 
     # """
     # handle the stock splits problem

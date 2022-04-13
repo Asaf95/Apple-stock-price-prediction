@@ -9,8 +9,6 @@ from copy import deepcopy
 import ml_classification_models
 
 
-
-
 def str_to_datetime(s):
     split = s.split('-')
     year, month, day = int(split[0]), int(split[1]), int(split[2])
