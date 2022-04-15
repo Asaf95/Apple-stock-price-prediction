@@ -6,7 +6,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras import layers
 from copy import deepcopy
-import ml_classification_models
+#import ml_classification_models
 
 
 def str_to_datetime(s):
@@ -178,9 +178,8 @@ def LSTM_prepare_variables(df):
     df_close.index = df_close.pop('date')
     df_close = df_close.iloc[::-1]
     windowed_df = df_to_windowed_df(df_close,
-
-                                    '2018-08-25',
-                                    '2022-03-23',
+                                    str_to_datetime('2018-08-25'),
+                                    str_to_datetime('2022-03-23'),
                                     n=3)
     dates, X, y = windowed_df_to_date_X_y(windowed_df)
 
