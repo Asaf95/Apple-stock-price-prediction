@@ -11,9 +11,11 @@ from dash import html
 from dash.dependencies import Input, Output
 from dash.dependencies import State
 import data.dataframe_gantt
+import webbrowser
+from mileston_1_DM import *
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
+x = mileston_1_DM.mile
 colors = {
     'background': '#f1f7fd',
     'text': '#061932'
@@ -46,8 +48,10 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                                   ),
                               ]),
                               dcc.Tab(label='How To Use', children=[
+
                                   html.I("How to use this app?"),
                                   html.Br()
+                                  html.mile
                               ]),
                           ]),
 
@@ -55,5 +59,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
 
 
 
+
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    webbrowser.open('http://127.0.0.1:8050/', new=0, autoraise=True)
+    app.run_server(debug=True, use_reloader=False)
