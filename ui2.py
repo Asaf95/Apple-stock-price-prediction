@@ -23,6 +23,8 @@ fig = ff.create_gantt(df)
 # fig.layout.xaxis.tickvals = pd.date_range('2009-01-01', '2009-03-01', freq='d')
 # fig.layout.xaxis.ticktext = list(range(len(fig.layout.xaxis.tickvals)))
 
+with open('mileston_1_DM/mileston_1_DM.pdf', 'rb') as pdf:
+    pdf_data = base64.b64encode(pdf.read()).decode('utf-8')
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True)
 
@@ -45,9 +47,8 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                                       figure=fig
                                   ),
                               ]),
-                              dcc.Tab(label='How To Use', children=[
-
-                                  html.I("How to use this app?"),
+                              dcc.Tab(label='Hows To Use', children=[
+                                  dash.html.ObjectEl(width="100%", height="600px", data='data:application/pdf;base64,'+ pdf_data,type='application/pdf',),
                                   html.Br(),
                               ]),
                           ]),
