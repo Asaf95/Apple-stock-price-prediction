@@ -1,4 +1,7 @@
 # Apple-stock-price-prediction
+Watch this Video to understand the flow! 
+https://youtu.be/puNj1wQSdpk
+
 We will predict the stock value of Apple 
 
 the main module calls all the other modules and have access to all the functions that are needed 
